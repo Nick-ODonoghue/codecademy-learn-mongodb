@@ -521,6 +521,242 @@
 			</section>
 
 			<section>
+				<h3>MongoDB Data Modeling Basics</h3>
+				<ul>
+					<li>A data model provides structure and organization to complex sets of information.</li>
+					<li>A well-designed data model enhances database usability and efficiency.</li>
+					<li>Two different data models can have different implications for usability and efficiency.</li>
+					<li>
+						Model A: Offers better data integrity and lower storage usage, but querying may take longer since data is
+						spread across multiple collections.
+					</li>
+					<img src="./assets/images/multipleCollectionDataModel.png" alt="multi collection data model" />
+					<li>Model B: Provides performance benefits with faster queries, but may have duplicated data.</li>
+					<img src="./assets/images/singleCollectionDataModel.png" alt="single collection data model" />
+					<li>Choosing the appropriate data model is vital for optimizing data storage and retrieval.</li>
+					<li>Applications may require data model refactoring as database requirements evolve.</li>
+					<li>
+						Selecting the most suitable data model for your application is crucial for ensuring efficient data
+						organization and retrieval.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Modeling Relationships in MongoDB</h3>
+				<ul>
+					<li>Relationships between data are important when considering the structure of collections in MongoDB.</li>
+					<li>
+						Using the example of a car database, a car document contains attributes like color and size, but may also
+						have information about the car's engine.
+					</li>
+					<li>
+						The engine is a separate entity with its own attributes, and it wouldn't be appropriate to make engine_power
+						an attribute of the car.
+					</li>
+					<li>
+						It's necessary to determine the relationship between the car data and the engine in the context of the
+						entire database.
+					</li>
+					<li>
+						The challenge in data modeling is to decide how to represent the engine as a separate entity and define its
+						relationships to the car and across the collection.
+					</li>
+					<li>MongoDB offers two options for establishing relationships: embedded documents or references.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Embedded Documents</h3>
+				<ul>
+					<li>Embedded documents allow us to nest related data directly inside a document in MongoDB.</li>
+					<li>Nested documents are called sub-documents.</li>
+					<img src="./assets/images/embeddedDocumentModel.png" alt="embedded document example" />
+					<li>Embedded documents are denormalized, meaning related data is stored together in a single collection.</li>
+					<li>
+						A good use case for embedded documents is modeling one-to-one relationships, where one entity contains
+						another. For example, a car document can have an embedded sub-document for the engine.
+					</li>
+					<li>
+						Another use case is modeling one-to-many relationships, where one entity maps to many sub-entities. For
+						example, a car owner document can have multiple embedded car sub-documents representing the cars they own.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>References</h3>
+				<ul>
+					<li>References in MongoDB allow us to create links between data to establish relationships.</li>
+					<li>With references, data is split into multiple documents and linked using identifiers.</li>
+					<img src="./assets/images/references.png" alt="reference data model example" />
+					<li>
+						In the car and engine example, the engine data is stored in a separate collection and linked to the car
+						document using the engine_id field.
+					</li>
+					<li>
+						This type of data model is called a normalized data model and resembles how relationships are created in
+						relational databases.
+					</li>
+					<li>
+						References are useful for modeling many-to-many relationships, where many instances of one entity can be
+						mapped to many instances of another entity.
+					</li>
+					<li>
+						An example is the relationship between car rentals and individuals renting cars, where a car can be rented
+						by multiple individuals and an individual can rent multiple cars.
+					</li>
+				</ul>
+			</section>
+
+			<h2>Choosing the Right Model</h2>
+
+			<section>
+				<h3>
+					Case A: A time management application that stores one user per task. We want to store details about the task,
+					such as the task name, the task due date, and the user assigned to the task (and their associated details).
+					There can only be one person assigned to each task.
+				</h3>
+				<ul>
+					<li>In the given scenario, we are modeling a one-to-one relationship between a task and a user.</li>
+					<li>
+						To retrieve the user data along with the task details in one query, it is preferable to use an embedded
+						document.
+					</li>
+					<img src="./assets/images/oneToOneEmbedded.png" alt="one to one embedded document" />
+					<li>
+						The document represents a task with the task name, due date, and the assignee's information embedded within
+						it.
+					</li>
+					<li>
+						The assignee information includes the name, role, and contact details of the user assigned to the task.
+					</li>
+					<li>
+						By using an embedded document, we can retrieve all the necessary information for the task and the assignee
+						in a single query.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>
+					Case B: A contact information management application that can store multiple addresses per user. The
+					application would store important details for the person such as their name, as well as their associated
+					addresses.
+				</h3>
+				<ul>
+					<li>
+						In this case, we are modeling a one-to-many relationship between a user and their associated addresses.
+					</li>
+					<li>There are two ways to implement the data model: using embedded documents or references.</li>
+					<li>
+						If we choose to use embedded documents, each user document would contain an array field called addresses,
+						where each element represents an address with a label and its corresponding details.
+					</li>
+					<img src="./assets/images/case2Embedded.png" alt="embedded screenshot 1" />
+					<li>
+						Using embedded documents is preferable when there are frequent queries on the addresses field, as we can
+						retrieve the address information directly from the user document.
+					</li>
+					<li>
+						However, if multiple users start sharing the same address, the embedded documents may lead to repetition and
+						increased storage.
+					</li>
+					<img src="./assets/images/case2Embedded2.png" alt="embedded screenshot 2" />
+					<li>
+						In such cases, using references is recommended. The addresses would be stored in a separate addresses
+						collection, with each address having a unique ID.
+					</li>
+					<img src="./assets/images/referenceAddress.png" alt="reference address example" />
+					<li>
+						The user documents would then include an array field called addresses, containing the unique IDs of the
+						associated address documents.
+					</li>
+					<img src="./assets/images/referenceUser.png" alt="reference user example" />
+					<li>
+						By using references, we avoid the repetition of address details and maintain a more efficient data model.
+					</li>
+					<li>
+						The choice between embedded documents and references depends on factors such as the frequency of accessing
+						address information and the size of the data, which should be considered when making the data modeling
+						decision.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>
+					Case C: A school registration application that manages multiple students. Each student can be in multiple
+					classes. Each class record can easily identify which students are registered and each student record can
+					quickly find any associated classes.
+				</h3>
+				<ul>
+					<li>In this application, we have many students sharing a relationship with many classes.</li>
+					<li>Here, we need to model a many-to-many relationship.</li>
+					<li>In this case, references might be preferred.</li>
+					<img src="./assets/images/referenceStudent.png" alt="reference student example" />
+					<img src="./assets/images/referenceClass.png" alt="reference classes example" />
+				</ul>
+			</section>
+
+			<section>
+				<h3>Review: MongoDB Data Modeling Basics</h3>
+				<ul>
+					<li>Data modeling is the practice of developing an organizational structure for the data in our database.</li>
+					<li>
+						Choosing a data model can have lasting implications on the database and its long-term performance,
+						maintainability, and usability.
+					</li>
+					<li>
+						Embedded documents and references are two of the most common ways to model data. These two methods help
+						define the relationships between the data in collections.
+					</li>
+					<li>
+						Reference-based data models are normalized; they use links inside of the data (typically via the _id field)
+						to create relationships.
+					</li>
+					<li>
+						Embedded data models are denormalized; they use nested documents inside of collections to create
+						relationships.
+					</li>
+				</ul>
+				<p>Useful Links:</p>
+				<li>
+					<a
+						href="https://www.mongodb.com/docs/manual/core/data-modeling-introduction/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>Data Modeling Introduction</a
+					>
+				</li>
+				<p>Useful Links:</p>
+				<li>
+					<a
+						href="https://www.mongodb.com/docs/manual/tutorial/model-embedded-one-to-one-relationships-between-documents/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>Model One-to-One Relationships with Embedded Documents</a
+					>
+				</li>
+				<p>Useful Links:</p>
+				<li>
+					<a
+						href="https://www.mongodb.com/docs/manual/tutorial/model-embedded-one-to-many-relationships-between-documents/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>Model One-to-Many Relationships with Embedded Documents</a
+					>
+				</li>
+				<p>Useful Links:</p>
+				<li>
+					<a
+						href="https://www.mongodb.com/docs/manual/tutorial/model-referenced-one-to-many-relationships-between-documents/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>Model One-to-Many Relationships with References</a
+					>
+				</li>
+				<p>Useful Links:</p>
+				<li>
+					<a href="https://learn.mongodb.com/courses/m320-mongodb-data-modeling"
+						>MongoDB University Data Modeling Course</a
+					>
+				</li>
+			</section>
+
+			<section>
 				<h3></h3>
 				<ul>
 					<li></li>
