@@ -422,6 +422,104 @@
 				</ul>
 			</section>
 
+			<h2>MongoDB & Data</h2>
+
+			<section>
+				<h3>Collections & Documents</h3>
+				<ul>
+					<li>MongoDB uses the document model to store data.</li>
+					<li>Data in MongoDB is organized into collections, which are subsets of the database.</li>
+					<li>Each collection contains individual records called documents.</li>
+					<li>Documents store information about specific entities.</li>
+					<li>Collections group together documents with similar information.</li>
+					<li>MongoDB databases consist of multiple collections assembled to store data for a specific use case.</li>
+					<li>
+						In the example of a camera store, the database would have collections for purchase data, inventory, and
+						customer information.
+					</li>
+					<img src="./assets/images/mongoDBDatabase.png" alt="mongodb database" />
+					<li>Documents within the customer collection would store personal information about each customer.</li>
+					<li></li>
+					<li></li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Data as JSON</h3>
+				<ul>
+					<li>JSON (Javascript Object Notation) is a text format for storing data.</li>
+					<li>JSON stores data as key-value pairs within curly braces.</li>
+					<img src="./assets/images/JSONFormat.png" alt="JSON example" />
+					<li>
+						MongoDB and various online resources also refer to these pairs as “field-value” or “name-value” pairs.
+					</li>
+					<li>Fields are unique identifiers for data points, indicating what kind of data is being stored.</li>
+					<li>Values are the actual data points associated with each field.</li>
+					<li>JSON supports various data types such as strings, numbers, arrays, and nested data.</li>
+					<li>JSON is readable and easily editable by humans and computers.</li>
+					<li>However, there are drawbacks to using JSON as a primary storage format in databases:</li>
+					<ol>
+						<li>JSON is computationally inefficient as parsing text takes time.</li>
+						<li>It is not storage-efficient due to longer descriptive field names taking up more space.</li>
+						<li>JSON has limited support for data types, lacking native support for dates.</li>
+					</ol>
+					<li>While JSON has advantages, it is not ideal as the primary storage format for databases.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>BSON - MongoDB’s Storage Format</h3>
+				<ul>
+					<li>BSON (Binary JavaScript Object Notation) is MongoDB's storage format for data.</li>
+					<img src="./assets/images/BSONExample.png" alt="BSON example" />
+					<li>BSON differs from JSON in three ways:</li>
+					<ol>
+						<li>BSON is not human-readable.</li>
+						<li>BSON is more efficient in terms of storage.</li>
+						<li>BSON supports additional data formats not found in JSON, such as dates.</li>
+					</ol>
+					<li>
+						BSON allows MongoDB to bridge the gap between JSON's flexibility and readability and the performance
+						requirements of a large database.
+					</li>
+					<li>
+						MongoDB stores data internally as BSON, but developers can interact with and manipulate the data using JSON.
+					</li>
+					<li>This approach enables efficient data storage and provides a good developer experience.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Review: MongoDB & Data</h3>
+				<ul>
+					<li>
+						A MongoDB instance can contain many databases, and within a database are collections of similar data.
+						Collections contain individual records called documents that are stored as field-value pairs.
+					</li>
+					<li>
+						JSON is a human-readable but inefficient format for storing data; conversely, BSON is not human-readable but
+						is highly efficient.
+					</li>
+					<li>
+						MongoDB users can easily store and manipulate data as JSON – even though internally, that data is stored as
+						BSON.
+					</li>
+				</ul>
+				<p>Useful Links:</p>
+				<li>
+					<a
+						href="https://www.mongodb.com/json-and-bson?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>SON and BSON Guide</a
+					>
+				</li>
+				<li>
+					<a
+						href="https://www.mongodb.com/basics/bson?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>Explaining BSON with Examples</a
+					>
+				</li>
+			</section>
+
 			<section>
 				<h3></h3>
 				<ul>
