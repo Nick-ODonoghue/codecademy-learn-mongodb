@@ -197,6 +197,12 @@
 				<li>
 					<a href="https://www.mongodb.com/nosql-explained/nosql-vs-sql">A deeper dive into NoSQL vs SQL</a>
 				</li>
+				<br />
+				<li>
+					<a href="https://www.codecademy.com/learn/learn-mongodb/modules/database-basics/cheatsheet"
+						>Database Basics - Cheatsheet</a
+					>
+				</li>
 			</section>
 
 			<h2>Introduction to No-SQL</h2>
@@ -420,6 +426,12 @@
 						<li>Diverse Cloud Tooling</li>
 					</ol>
 				</ul>
+				<br />
+				<li>
+					<a href="https://www.codecademy.com/learn/learn-mongodb/modules/introduction-to-mongodb/cheatsheet"
+						>Introduction to MongoDB - Cheatsheet</a
+					>
+				</li>
 			</section>
 
 			<h2>MongoDB & Data</h2>
@@ -752,6 +764,274 @@
 				<li>
 					<a href="https://learn.mongodb.com/courses/m320-mongodb-data-modeling"
 						>MongoDB University Data Modeling Course</a
+					>
+				</li>
+			</section>
+
+			<h2>MongoDB CRUD I</h2>
+
+			<section>
+				<h3>Browsing and Selecting Collections</h3>
+				<ul>
+					<li>
+						To list all existing databases, use the command "show dbs". This will display a list of databases in the
+						current MongoDB instance, along with their respective disk space usage.
+					</li>
+					<img src="./assets/images/showDBCommand.png" alt="example output of show db command" />
+					<li>
+						To navigate to a specific database, use the command "use dbNameHere". For example, if you want to work with
+						the e-commerce database, you would run "use online_plant_shop". This command will switch you to the
+						specified database, and if it doesn't exist, MongoDB will create it.
+					</li>
+					<img src="./assets/images/useDBCommand.png" alt="example output of use DB command" />
+					<li>
+						After executing the use command, the terminal prompt will show the name of the current database you're
+						working with, indicated by the > symbol. For instance, it will change from test> to online_plant_shop>.
+					</li>
+					<li>
+						If you want to check the name of the currently selected database, use the command "db". This will display
+						the name of the database you are currently using.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Introduction to Querying</h3>
+				<ul>
+					<li>Persistence in databases refers to the ability to store data that is stable and enduring.</li>
+					<li>
+						CRUD is an acronym for the four essential functions of a persistent database: create, read, update, and
+						delete.
+					</li>
+					<li>Querying is the process of requesting data from a database.</li>
+					<li>The focus of this lesson is on reading data (the "R" in CRUD) from a MongoDB database.</li>
+					<li>To read data from MongoDB, we need to query the database.</li>
+					<li>The most common way to query data in MongoDB is by using the .find() method.</li>
+					<li>The syntax for the .find() method is db.collectionNameHere.find().</li>
+					<li>The .find() method is called on a specific collection.</li>
+					<li>Calling .find() without arguments will match all documents in the specified collection.</li>
+					<li>
+						When the query is successful, MongoDB returns a cursor, which is an object that points to the matched
+						documents.
+					</li>
+					<li>
+						MongoDB uses cursors to return query results in batches, as queries can potentially match a large number of
+						documents.
+					</li>
+					<li>
+						When querying collections with the .find() method, MongoDB returns the first set of matching documents.
+					</li>
+					<li>To access the next batch of documents, the it keyword (short for iterate) can be used.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Querying Collections</h3>
+				<ul>
+					<li>
+						To find specific documents in a collection, we can pass a query as the first argument to the .find() method.
+					</li>
+					<li>The query argument is formatted as a document with field-value pairs that we want to match.</li>
+					<img src="./assets/images/findWithParameters.png" alt="find method with parameters" />
+					<li>We can have as many field-value pairs as we want in our query.</li>
+					<img src="./assets/images/findWithMultipleParameters.png" alt="multiple parameters" />
+					<li>Query fields and their associated values are case and space sensitive.</li>
+					<li>
+						The .find() method uses the implicit equality operator, $eq, to match documents based on the specified field
+						and value.
+					</li>
+					<li>We can also explicitly include the equality operator in our query document using the syntax:</li>
+					<li>
+						However, MongoDB handles implicit equality by default, so we can use the shorthand syntax for basic queries.
+					</li>
+					<li>
+						In the upcoming exercises, we will learn about other operators that can be used to specify ranges and other
+						criteria for matching documents in our queries.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Querying Embedded Documents</h3>
+				<ul>
+					<li>
+						MongoDB allows us to embed sub-documents directly within a parent document to establish relationships
+						between data.
+					</li>
+					<li>Sub-documents are nested documents that can be accessed using dot notation.</li>
+					<img src="./assets/images/subDocuments.png" alt="sub documents" />
+					<li>To query on fields in embedded documents, we use the syntax:</li>
+					<img src="./assets/images/subDocumentQuery.png" alt="sub document query example" />
+					<li>
+						We must use the parent field (the name of the field wrapping the embedded document) followed by the dot (.)
+						notation and the embedded field we are looking for.
+					</li>
+					<li>The parent and embedded fields should be wrapped in quotation marks.</li>
+					<li>When querying embedded documents, we can access arrays of embedded documents as well.</li>
+					<li>For example, to find a document with a specific model name, we can use:</li>
+					<img src="./assets/images/embeddedDocumentArray.png" alt="embedded document array accessing" />
+					<li>This query will return the document that matches the specified model name.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Comparison Operators: $gt and $lt</h3>
+				<ul>
+					<li>
+						MongoDB provides comparison query operators that allow us to match documents based on measures of equality.
+					</li>
+					<li>
+						The greater than operator, $gt, is used to match documents where the value for a particular field is greater
+						than a specified value.
+					</li>
+					<img src="./assets/images/greaterThanQuery.png" alt="greater than query" />
+					<li>
+						The greater than or equal to operator, $gte, can be used to match documents where the value is greater than
+						or equal to the specified value.
+					</li>
+					<li>
+						The less than operator, $lt, is used to match documents where the value for a particular field is less than
+						a specified value.
+					</li>
+					<img src="./assets/images/lessThanQuery.png" alt="less than query" />
+					<li>
+						The less than or equal to operator, $lte, can be used to match documents where the value is less than or
+						equal to the specified value.
+					</li>
+					<li>Comparison operators can be used with any data type.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Sorting Documents</h3>
+				<ul>
+					<li>MongoDB allows us to sort query results by specific fields or sets of fields.</li>
+					<li>To sort documents, we use the .sort() method appended to the query.</li>
+					<li>
+						The .sort() method takes a document as an argument, specifying the fields to sort by and their respective
+						sort order.
+					</li>
+					<li>
+						The sort order values can be 1 or -1. A value of 1 sorts the field in ascending order, while -1 sorts it in
+						descending order.
+					</li>
+					<img src="./assets/images/sortingQuery.png" alt="sorting query example" />
+					<li>
+						For datetime and string values, a value of 1 sorts in chronological or alphabetical order, respectively.
+					</li>
+					<li>
+						Sorting on fields with duplicate values may result in different orderings of documents with those values in
+						subsequent queries.
+					</li>
+					<li>
+						Additional fields can be specified for more consistent sorting. For example: db.records.find().sort({
+						"release_year": 1, "artist": 1 });
+					</li>
+					<img src="./assets/images/sortingQueryTwoParameters.png" alt="sorting query with two parameters" />
+				</ul>
+			</section>
+
+			<section>
+				<h3>Query Projections</h3>
+				<ul>
+					<li>
+						MongoDB allows us to specify the exact fields we want to include or exclude in our query results using
+						projections.
+					</li>
+					<li>Projections are specified as a second argument to the .find() method, using a projection document.</li>
+					<li>In the projection document, fields can have a value of 1 to include them or 0 to exclude them.</li>
+					<img src="./assets/images/queryProjection.png" alt="query projections" />
+					<li>
+						Projections help us retrieve only the necessary data from documents, especially when dealing with large or
+						complex structures.
+					</li>
+					<li>If a field is not explicitly excluded or included, it is included by default in the query result.</li>
+					<li>It's possible to exclude the _id field by setting its value to 0 in the projection document.</li>
+					<img src="./assets/images/queryProjectionexcluding.png" alt="query excluding the id field" />
+					<li>To exclude multiple fields, assign a value of 0 to each field in the projection document.</li>
+					<li>
+						Inclusion and exclusion statements cannot be combined in a single projection document, except for the _id
+						field.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Review: MongoDB CRUD I</h3>
+				<ul>
+					<li>We can view a list of all our databases by running the show dbs command.</li>
+					<li>
+						We can navigate to a particular database, or see which database we are currently using with the use "db",
+						and db commands, respectively.
+					</li>
+					<li>
+						We can use the .find() method to query a collection. Excluding a query argument matches all documents from
+						the collection.
+					</li>
+					<li>We can match documents on particular field values by passing a query argument to the .find() method.</li>
+					<li>
+						When a collection’s record has an embedded document, we can query the fields inside of it using dot notation
+						(.) and wrapping the fields in quotation marks.
+					</li>
+					<li>
+						The $gt and $lt comparison operators allow our query to match documents where the value for a particular
+						field is greater than or less than a given value, respectively.
+					</li>
+					<li>
+						We can use the .sort() method to sort our query results by a particular field in ascending or descending
+						order.
+					</li>
+					<li>
+						We can include a projection in our query to include or exclude certain fields from our returned documents.
+					</li>
+					<li>
+						In addition to the methods and operators we’ve covered in this lesson, MongoDB provides us with even more
+						syntax that can be useful to us when performing queries:
+					</li>
+					<ol>
+						<li>The .count() method returns the number of documents that match a query.</li>
+						<li>
+							The .limit() method can be chained to the .find() method, and specifies the maximum number of documents a
+							query will output.
+						</li>
+						<li>
+							The $exists operator can be included in a query filter to only match documents that contain the given
+							field.
+						</li>
+						<li>The $ne operator helps check if a field is not equal to a specified value.</li>
+						<li>The $and and $or operators help perform AND or OR logic operators.</li>
+						<li>
+							Lastly, if you are looking for a way to make query outputs look a bit more “pretty”, you can use the
+							.pretty() method!
+						</li>
+					</ol>
+				</ul>
+				<br />
+				<li>
+					<a href="https://www.codecademy.com/learn/learn-mongodb/modules/mongo-db-crud-i/cheatsheet"
+						>MongoDB CRUD I - Cheatsheet</a
+					>
+				</li>
+			</section>
+
+			<section>
+				<h3>MongoDB CRUD II</h3>
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+				<br />
+				<li>
+					<a href="https://www.codecademy.com/learn/learn-mongodb/modules/mongo-db-crud-ii/cheatsheet"
+						>MongoDB CRUD II - Cheatsheet</a
 					>
 				</li>
 			</section>
