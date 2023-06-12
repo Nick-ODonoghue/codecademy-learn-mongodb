@@ -18,7 +18,177 @@
 				<a href="https://www.codecademy.com/learn/learn-mongodb">Codecademy Learn MongoDB course</a>
 			</p>
 
-			<h2></h2>
+			<h2>Introduction to Databases</h2>
+
+			<section>
+				<h3>What is a Database?</h3>
+				<ul>
+					<li>Databases store, modify, and retrieve collections of information electronically.</li>
+					<li>
+						They enable websites like Codecademy to retain and retrieve large amounts of information in an organized and
+						consistent manner.
+					</li>
+					<li>Benefits of using databases in software development:</li>
+					<ol>
+						<li>Efficient storage and retrieval of data.</li>
+						<li>Data consistency and integrity.</li>
+						<li>Data security and access control.</li>
+						<li>Scalability for handling large amounts of data.</li>
+					</ol>
+					<li>Databases are essential for organizing and managing content on websites.</li>
+					<li>Different database classifications exist, and understanding them is useful for developers.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Why Databases?</h3>
+				<ul>
+					<li>Databases are crucial for storing data in various types of software applications.</li>
+					<li>They allow for the persistence of important information necessary for application functionality.</li>
+					<li>Databases are often represented as a bucket that can store any type of information.</li>
+					<img src="./assets/images/representationOfADatabase.png" alt="picture representation of a database" />
+					<li>Applications interact with a database through a database management system (DBMS).</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Database Management Systems (DBMS)</h3>
+				<ul>
+					<li>
+						DBMS (Database Management System) is the software that encapsulates the database and allows interaction with
+						it.
+					</li>
+					<li>It provides a programming language or graphical interface (GUI) to work with the database.</li>
+					<li>DBMS allows storing multiple databases and provides unique features for maintaining data.</li>
+					<img src="./assets/images/databaseManagementSystem.png" alt="illostration of a database management system" />
+					<li>
+						Different types of data can be stored in the database, including strings, numeric data, date and time types,
+						booleans, images, and audio files.
+					</li>
+					<li>Each DBMS has its own implementation and offers advantages and disadvantages.</li>
+					<li>Two common types of databases and their associated DBMS are discussed:</li>
+					<ol>
+						<li>
+							Relational databases: Known for storing data in tables with predefined relationships, using SQL for
+							manipulation and retrieval.
+						</li>
+						<li>
+							Non-relational databases: Store data in flexible, schema-less formats like key-value pairs, documents, or
+							graphs, providing scalability and performance.
+						</li>
+					</ol>
+					<li>The choice of DBMS depends on the specific requirements and use cases of the application.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Relational Databases</h3>
+				<ul>
+					<li>Relational databases structure data in tabular form with rows and columns.</li>
+					<img src="./assets/images/relationalDatabaseStructure.png" alt="relational database structure" />
+					<li>Data is organized and stored in tables, with each table representing a specific entity or concept.</li>
+					<img src="./assets/images/songsTable.png" alt="song table" />
+					<img src="./assets/images/albumsTable.png" alt="album table" />
+					<img src="./assets/images/artistsTable.png" alt="artist table" />
+					<li>Relationships between tables can be defined, such as "one-to-one," "one-to-many," and "many-to-many."</li>
+					<li>
+						A music streaming website might have tables for albums, songs, and artists, with relationships established
+						between them.
+					</li>
+					<img src="./assets/images/tableRelationships.png" alt="relationships between tables" />
+					<li>
+						A relationship between the Songs and Albums table. A song “belongs” to an album via the album_id field.
+					</li>
+					<li>
+						A relationship between the Albums and Artists table. An album “belongs” to an artist via the artist_id
+						field.
+					</li>
+					<li>Relational databases have a pre-defined schema, determined before inserting any data.</li>
+					<li>Developers interact with relational databases using SQL (Structured Query Language).</li>
+					<li>Relational databases are often referred to as SQL databases due to their reliance on SQL.</li>
+					<li>They are managed by a Relational Database Management System (RDBMS).</li>
+					<li>Popular RDBMS options include PostgreSQL and MySQL.</li>
+					<li>
+						Relational databases have unique disadvantages at an enterprise level, including cost and space
+						considerations for large data sets.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Non-Relational Databases</h3>
+				<ul>
+					<li>Non-relational databases, also known as NoSQL databases, do not follow the relational model.</li>
+					<li>They store data in formats other than tables and do not strictly rely on relationships.</li>
+					<li>
+						Different types of non-relational databases include document databases, graph databases, and key-value
+						databases.
+					</li>
+					<li>
+						Non-relational databases specialize in storing unstructured data that doesn't fit neatly into rows and
+						columns.
+					</li>
+					<li>Example: Music database stored in a document database using JSON format.</li>
+					<img src="./assets/images/nonRelationalDatabase.png" alt="a non-relational database visual example" />
+					<li>
+						Non-relational databases offer flexibility and scalability, allowing for flexible schemas and easy
+						adaptation to changing application needs.
+					</li>
+					<li>Each NoSQL database has its own custom query language instead of a standardized language like SQL.</li>
+					<li>
+						Disadvantages of non-relational databases include potential difficulties in maintaining and tracking
+						unstructured data and the need to learn different query languages for each database.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Review: Introduction to Databases</h3>
+				<ul>
+					<li>Databases:</li>
+					<ol>
+						<li>
+							Databases are systems that store, modify, and access structured collections of information electronically.
+						</li>
+						<li>
+							Database Management Systems (DBMS) allow developers to communicate via code or a graphical user interface
+							with a database.
+						</li>
+						<li>
+							Databases can store a wide range of data types, including text, numbers, dates and times, and files of
+							various types.
+						</li>
+					</ol>
+					<li>Relational Databases:</li>
+					<ol>
+						<li>
+							Relational databases, a common database class, organize data into tables of rows and columns of
+							information and rely on relationships to organize data.
+						</li>
+						<li>A relational database schema is typically pre-defined before data is entered.</li>
+						<li>
+							All relational databases use SQL to allow developers to communicate with the database using a common
+							language.
+						</li>
+						<li>
+							Relational databases can be costly to set up and scale. Performance and cost are big factors in using a
+							relational database in an application.
+						</li>
+					</ol>
+					<li>Non-Relational Databases:</li>
+					<ol>
+						<li>
+							Non-relational databases, another common database class, refer to any database that does not follow the
+							relational model.
+						</li>
+						<li>
+							Non-relational databases typically have a more flexible schema and are more easily scaled than relational
+							databases. However, the unstructured nature of the data can make it difficult to maintain, and each
+							non-relational database has its own query language.
+						</li>
+					</ol>
+				</ul>
+			</section>
 
 			<section>
 				<h3></h3>
