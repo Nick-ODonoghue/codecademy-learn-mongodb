@@ -1,6 +1,6 @@
 <h1 align="center">My Notes - Codecademy Learn MongoDB | NickOD.xyz</h1>
 
-![Certificate of Completion]()
+![Certificate of Completion - Coming Soon...]()
 
 <br>
 
@@ -14,7 +14,7 @@ This is a collection of all my notes taken whilst going through the Codecademy c
 
 ## Link to Live Site of Notes
 
-[My Notes]()
+[My Notes](https://nick-odonoghue.github.io/codecademy-learn-mongodb/)
 
 <br>
 
@@ -31,7 +31,7 @@ This is a collection of all my notes taken whilst going through the Codecademy c
 
 ## Useful Resources
 
-[Codecademy - React Hooks Cheatsheet]()
+[Coming Soon...]()
 
 <br>
 

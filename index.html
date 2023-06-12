@@ -295,13 +295,14 @@
 					<img src="./assets/images/graphDatabase.png" alt="graph database" />
 					<li>Neo4j is a popular option for working with graph databases.</li>
 					<li>Column Oriented Databases:</li>
-					<ol></ol>
-					<li>
-						Column-oriented NoSQL databases store data as columns rather than rows, aiming to provide faster read
-						speeds.
-					</li>
-					<li>Data is aggregated quickly for specific columns, making it efficient for analytical queries.</li>
-					<li>Column-oriented databases eliminate the need to pull irrelevant data from adjacent rows.</li>
+					<ol>
+						<li>
+							Column-oriented NoSQL databases store data as columns rather than rows, aiming to provide faster read
+							speeds.
+						</li>
+						<li>Data is aggregated quickly for specific columns, making it efficient for analytical queries.</li>
+						<li>Column-oriented databases eliminate the need to pull irrelevant data from adjacent rows.</li>
+					</ol>
 					<li>Example: Analyzing total sales for products by aggregating data from the sales column.</li>
 					<img src="./assets/images/columnOrientatedDatabase.png" alt="column oriented database" />
 					<li>Amazon's Redshift is a popular option for working with column-oriented databases.</li>
@@ -325,21 +326,99 @@
 				</ul>
 			</section>
 
-			<h2></h2>
+			<h2>Introduction to MongoDB</h2>
 
 			<section>
-				<h3></h3>
+				<h3>Introduction</h3>
 				<ul>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
+					<li>Modern databases allow us to store, organize, and retrieve data.</li>
+					<li>Two main classes of databases: relational (SQL) and non-relational (NoSQL).</li>
+					<li>Relational databases store data using tables (rows and columns) and work well for organized data.</li>
+					<li>Non-relational databases store data in various ways and work well for unstructured data.</li>
+					<li>MongoDB is one of the most popular document databases.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>What is MongoDB?</h3>
+				<ul>
+					<li>MongoDB is a database system released in 2009 and regularly updated.</li>
+					<li>It uses the document model to store data.</li>
+					<li>The document model stores data in documents and collections.</li>
+					<li>Data inside documents is typically stored in hierarchical structures like JSON, BSON, and YAML.</li>
+					<li>
+						In contrast to relational databases, MongoDB stores data in individual documents rather than rows in tables.
+					</li>
+					<li>Each document can have a unique set of fields.</li>
+					<li>Documents are stored inside collections.</li>
+					<li>MongoDB is known for its flexibility and developer-friendly features.</li>
+					<img src="./assets/images/relationalDBvsDocumentDB.png" alt="relational database vs a document database" />
+				</ul>
+			</section>
+
+			<section>
+				<h3>Advantages of Using MongoDB</h3>
+				<ul>
+					<li>Flexibility and Scalability:</li>
+					<ol>
+						<li>
+							Flexible data storage: Document databases like MongoDB allow for flexible storage of data. Unlike
+							relational databases where changing a column in a table affects all entries, changes to a single document
+							in MongoDB have no impact on other documents. This flexibility enables easy adaptation of the database to
+							evolving application requirements.
+						</li>
+						<li>
+							Scalability: As applications grow, the database must be able to handle increasing amounts of data. MongoDB
+							offers various user-friendly options for scaling the database to accommodate growth. This ensures that the
+							database can handle larger workloads and increasing demands without compromising performance.
+						</li>
+					</ol>
+					<li>Developer-Friendly:</li>
+					<ol>
+						<li>
+							MongoDB databases support a variety of different use-cases. To name a few, MongoDB can be used to build
+							web, mobile, and desktop applications. MongoDB also has features that support data analytics and data
+							visualization.
+						</li>
+						<li>
+							Given MongoDB’s popularity, a large community has formed around the technology. This means there are a
+							plethora of resources (e.g., forums, articles, conferences) available for developers at any level.
+						</li>
+						<li>
+							MongoDB has a significant amount of detailed documentation and educational tools (like MongoDB University)
+							to help developers learn about all of MongoDB’s unique features.
+						</li>
+					</ol>
+					<li>Diverse Cloud Tooling:</li>
+					<ol>
+						<li>
+							MongoDB Atlas: MongoDB's multi-cloud database service that allows developers to easily create, manage, and
+							deploy MongoDB databases in the cloud. It eliminates the need for local MongoDB setup and provides an
+							online dashboard for database management.
+						</li>
+						<li>
+							MongoDB Realm: A cloud offering by MongoDB that enables developers to quickly build applications
+							integrated with MongoDB. Realm supports various use cases, including mobile, internet-of-things (IoT), and
+							desktop applications. It allows for database creation on mobile devices, seamless data synchronization,
+							and complex tasks like authentication.
+						</li>
+					</ol>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Review: Introduction to MongoDB</h3>
+				<ul>
+					<li>
+						MongoDB is a NoSQL document database. This means that data entries in the database are stored inside
+						documents within collections.
+					</li>
+					<li>Choosing to use MongoDB has some key benefits:</li>
+					<ol>
+						<li>Flexibility and Scalability</li>
+						<li>Developer Friendly</li>
+						<li>Diverse Cloud Tooling</li>
+					</ol>
 				</ul>
 			</section>
 
