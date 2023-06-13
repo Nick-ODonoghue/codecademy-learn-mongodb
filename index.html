@@ -1193,19 +1193,288 @@
 				</li>
 			</section>
 
+			<h2>MongoDB CRUD II Inserting & Updating</h2>
+
 			<section>
-				<h3>MongoDB CRUD II</h3>
+				<h3>The _id Field</h3>
 				<ul>
+					<li>The _id field is present in every document in a MongoDB collection.</li>
+					<img src="./assets/images/theIDField.jpg" alt="id field" />
+					<li>It is a required field and must be unique for each document.</li>
+					<li>If no value is provided for the _id field, MongoDB automatically generates an ObjectId for it.</li>
+					<li>
+						Developers can choose to specify the _id with a different data type such as a number or random string.
+					</li>
+					<li>The _id field is immutable, meaning it cannot be updated or changed once assigned to a document.</li>
+					<li>The ObjectId is a commonly used data type for the _id field, consisting of a 12-byte value.</li>
+					<li>
+						Automatically generated ObjectIds contain an embedded timestamp, allowing for rough sorting of documents by
+						creation time.
+					</li>
+					<li>
+						The _id field is how MongoDB identifies each unique document when inserting or updating data in a
+						collection.
+					</li>
 					<li></li>
 					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Inserting a Single Document</h3>
+				<ul>
+					<li>To insert a single document into a collection, we can use the .insertOne() method.</li>
+					<img src="./assets/images/insertOneMethod.jpg" alt="insertOne method" />
+					<li>
+						The insertOne() method takes the new document as a required parameter and an optional writeConcern
+						parameter.
+					</li>
+					<li>The writeConcern parameter specifies how write requests should be acknowledged by MongoDB.</li>
+					<img src="./assets/images/insertAcknowledgment.jpg" alt="insert acknowledgement" />
+					<li>
+						When a document is successfully inserted, the output includes the acknowledged field with a value of true
+						and the insertedId field with the _id of the newly inserted document.
+					</li>
+					<li>If the specified collection does not exist, MongoDB will create it and insert the document into it.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Inserting Multiple Documents</h3>
+				<ul>
+					<li>MongoDB's .insertMany() method is used to insert multiple documents into a collection.</li>
+					<li>If the specified collection does not exist, MongoDB will create it.</li>
+					<img src="./assets/images/insertMany.jpg" alt="insert many example" />
+					<li>Parameters:</li>
+					<ol>
+						<li>An array of documents to be added to the collection.</li>
+						<li>writeConcern (optional): Allows specifying how write requests should be acknowledged by MongoDB.</li>
+						<li>ordered (optional): Determines whether the insert should be ordered or unordered. Default is true.</li>
+					</ol>
+					<li>
+						With ordered inserts, if a document fails to be inserted, the entire operation stops, and remaining
+						documents are not inserted.
+					</li>
+					<li>Unordered inserts continue even if there are failures and attempt to insert any remaining documents.</li>
+					<li>The output includes an insertedIds field, which shows the _id of each inserted document.</li>
+					<img src="./assets/images/insertManyOutput.jpg" alt="insert many output" />
+				</ul>
+			</section>
+
+			<section>
+				<h3>Updating a Single Document</h3>
+				<ul>
+					<li>To update a single document in MongoDB, we use the .updateOne() method.</li>
+					<img src="./assets/images/updateOneSyntax.jpg" alt="updateOne syntax" />
+					<li>Parameters:</li>
+					<ol>
+						<li>filter: A document that specifies the selection criteria for the document to update.</li>
+						<li>
+							update: A document that defines the modifications to be applied to the selected document. MongoDB update
+							operators can be used to perform various modifications.
+						</li>
+						<li>
+							options: Additional specifications for the update operation, such as upsert (creates a new document if no
+							matching document is found) and writeConcern.
+						</li>
+					</ol>
+					<img src="./assets/images/updateOne.jpg" alt="updateOne example" />
+					<li>
+						The .updateOne() method updates the first document that matches the filter criteria, even if multiple
+						documents match.
+					</li>
+					<li>The operation returns:</li>
+					<img src="./assets/images/updateOneReturned.jpg" alt="returned after updateOne is used" />
+					<li>To confirm the update, you can query for the updated document using .findOne():</li>
+					<img src="./assets/images/findOneConfirmation.jpg" alt="fondOne confirmation" />
+				</ul>
+			</section>
+
+			<section>
+				<h3>Updates on Embedded Documents and Arrays</h3>
+				<ul>
+					<li>To update a specific field within an embedded document in MongoDB, we can use dot notation.</li>
+					<img src="./assets/images/updatingWithDotNotation.jpg" alt="updating with dot notation" />
+					<li>
+						The above command successfully targets the width field inside the dimensions embedded document using dot
+						notation.
+					</li>
+					<li>
+						MongoDB also allows data to be stored within arrays. To update a value within an array, we can use dot
+						notation with the index of the element we want to update.
+					</li>
+					<img src="./assets/images/updatingWithIndexing.jpg" alt="updating with an index number" />
+					<li>
+						In the above command, the embedded document's name and the array index (1 in this case) are wrapped in
+						quotations.
+					</li>
+					<li>Note that arrays in MongoDB are zero-indexed, so the first element has an index of 0.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Updating an Array with New Elements</h3>
+				<ul>
+					<li>MongoDB provides the $push operator to add new elements to the end of an array.</li>
+					<li>The $push operator can be used with the .updateOne() method with the following syntax:</li>
+					<img src="./assets/images/pushOperator.jpg" alt="push operator" />
+					<li>After the update, the document will have the new year added to the array</li>
+					<img src="./assets/images/pushOperatorResult.jpg" alt="push operator result" />
+					<li>
+						If the specified field is absent in the document, the $push operator will add the field as an array and
+						include the given value as its element.
+					</li>
+					<img src="./assets/images/pushOperatorNewField.jpg" alt="push operator with a new field" />
+					<li>
+						Since the document didn't previously have a country field, running this command will add the new field as an
+						array with one element, "Germany":
+					</li>
+					<img src="./assets/images/pushOperatorNewFieldResult.jpg" alt="new field result" />
+				</ul>
+			</section>
+
+			<section>
+				<h3>Upserting a Document</h3>
+				<ul>
+					<li>The upsert option is an optional parameter that can be used with update methods like .updateOne().</li>
+					<li>
+						By default, the upsert option is set to false, which means the update operation will only modify existing
+						documents that match the query criteria.
+					</li>
+					<li>When the upsert option is set to true, the following behavior occurs:</li>
+					<ol>
+						<li>If there is a matching document, it will be updated with the specified modifications.</li>
+						<li>
+							If there is no matching document based on the query criteria, a new document will be inserted with the
+							specified fields and values.
+						</li>
+					</ol>
+					<li>The syntax for using upsert with .updateOne() is as follows:</li>
+					<img src="./assets/images/upsertSyntax.jpg" alt="upsert syntax" />
+					<li>Upserting a document in the pets collection for a cat named Luna:</li>
+					<img src="./assets/images/upsertingExample.jpg" alt="upserting example" />
+					<li>
+						If there is an existing document in the collection that matches the query (name: "Luna" and type: "Cat"),
+						its age field will be updated to 3.
+					</li>
+					<li>
+						If there is no existing document matching the query, a new document will be inserted with the specified
+						fields (name, type, age).
+					</li>
+					<li>
+						The upsert option is useful when you want to ensure that a document exists or is updated based on certain
+						criteria, without explicitly checking for its existence beforehand.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Updating Multiple Documents</h3>
+				<ul>
+					<li>The MongoDB .updateMany() method is used to update multiple documents in a collection simultaneously.</li>
+					<li>It allows us to update all documents that satisfy a given condition.</li>
+					<img src="./assets/images/updateManySyntax.jpg" alt="update many syntax" />
+					<li>The three main parameters are:</li>
+					<ol>
+						<li>filter: The selection criteria for the update.</li>
+						<li>update: The modifications to apply.</li>
+						<li>options: Other options that can be applied, such as upsert.</li>
+					</ol>
+					<img src="./assets/images/updateManyExample.jpg" alt="update many example" />
+					<li>This will target all documents with a salary of 75000 and update the salary field to 80000.</li>
+					<li>The documents that match the filter will be updated, while others will remain unchanged.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Modifying Documents</h3>
+				<ul>
+					<li>The .findAndModify() method in MongoDB is used to modify and return a single document.</li>
+					<li>By default, the document returned does not include the modifications made on the update.</li>
+					<img src="./assets/images/findAndModifySyntax.jpg" alt="find and modify syntax" />
+					<li>Four commonly used fields are:</li>
+					<ol>
+						<li>query: Defines the selection criteria for the record to be modified.</li>
+						<li>update: Specifies the fields to update and the changes to make.</li>
+						<li>new: When set to true, returns the modified document instead of the original.</li>
+						<li>upsert: Creates a new document if the selection criteria does not match any existing documents.</li>
+					</ol>
+					<li>
+						If we want to update a document and see the pre-modification state, we can use the method with the default
+						behavior.
+					</li>
+					<img src="./assets/images/findAndModifydefult.jpg" alt="find and modify defualt" />
+					<li>The output of the method will be the document before it was modified, even if the update was applied.</li>
+					<li>
+						In the second scenario, by setting new: true, the method will return the modified document as the output.
+					</li>
+					<img src="./assets/images/findAndModifyNewTrue.jpg" alt="find and modify new true" />
+					<li>The upsert field allows us to add documents if they don't currently exist in the database.</li>
+					<li>If the query does not find a match, the method will create the document based on the upsert option.</li>
+					<img src="./assets/images/findAndModifyUpsertTrue.jpg" alt="find and modify upsert true" />
+					<li>.updateOne() and .findAndModify() behave similarly but with a key difference:</li>
+					<ol>
+						<li>.findAndModify() returns the document that was modified, while .updateOne() does not.</li>
+						<li>
+							Additionally, .findAndModify() allows us to specify whether we want to return the old or new version of
+							the updated document using the new parameter.
+						</li>
+					</ol>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Review: MongoDB CRUD II Inserting & Updating</h3>
+				<ul>
+					<li>
+						The _id field is a unique identifier for documents in a collection. By default, MongoDB assigns an ObjectId
+						value to the _id field for each document.
+					</li>
+					<li>
+						Individual documents can be added to a collection with .insertOne(), and the document to be inserted is
+						provided as an argument.
+					</li>
+					<li>
+						Multiple documents can be inserted into a collection with the .insertMany() method. An array containing all
+						the documents to insert is passed in an argument.
+					</li>
+					<li>
+						The .updateOne() method is used to update the first document within the collection that matches a given
+						query.
+					</li>
+					<li>We can use .updateMany() to update multiple matching documents simultaneously.</li>
+					<li>The $push operator appends a specified value to an array.</li>
+					<li>
+						The .findAndModify() method modifies and returns a single document in a collection. By default, it returns
+						the original document, and if no matching document is found, a new one can be inserted by adding the upsert
+						option.
+					</li>
+					<li>
+						MongoDB offers us other syntax and commands that can be useful when inserting, updating, or replacing
+						documents:
+					</li>
+					<ol>
+						<li>
+							The ordered parameter can be provided to the .insertMany() method. It accepts a boolean value, and, if set
+							to false, will insert the documents in an unordered format to increase performance.
+						</li>
+						<li>
+							The $unset operator can be provided to the .updateOne() or .updateMany() method. It removes a particular
+							field from a document.
+						</li>
+						<li>
+							The .findOneAndUpdate() method is similar to .updateOne(), but instead of returning a document
+							acknowledging the success or failure of our operation, it returns either the original or updated document.
+						</li>
+						<li>
+							The .renameCollection() method allows us to update the name of our collection without modifying any of its
+							documents.
+						</li>
+						<li>
+							The .bulkWrite() method allows us to perform multiple write operations (updating or inserting) with
+							controls for order of execution.
+						</li>
+					</ol>
 				</ul>
 				<br />
 				<li>
