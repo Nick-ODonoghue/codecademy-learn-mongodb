@@ -739,28 +739,24 @@
 						>Data Modeling Introduction</a
 					>
 				</li>
-				<p>Useful Links:</p>
 				<li>
 					<a
 						href="https://www.mongodb.com/docs/manual/tutorial/model-embedded-one-to-one-relationships-between-documents/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
 						>Model One-to-One Relationships with Embedded Documents</a
 					>
 				</li>
-				<p>Useful Links:</p>
 				<li>
 					<a
 						href="https://www.mongodb.com/docs/manual/tutorial/model-embedded-one-to-many-relationships-between-documents/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
 						>Model One-to-Many Relationships with Embedded Documents</a
 					>
 				</li>
-				<p>Useful Links:</p>
 				<li>
 					<a
 						href="https://www.mongodb.com/docs/manual/tutorial/model-referenced-one-to-many-relationships-between-documents/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
 						>Model One-to-Many Relationships with References</a
 					>
 				</li>
-				<p>Useful Links:</p>
 				<li>
 					<a href="https://learn.mongodb.com/courses/m320-mongodb-data-modeling"
 						>MongoDB University Data Modeling Course</a
@@ -768,7 +764,7 @@
 				</li>
 			</section>
 
-			<h2>MongoDB CRUD I</h2>
+			<h2>MongoDB CRUD I - Finding Documents</h2>
 
 			<section>
 				<h3>Browsing and Selecting Collections</h3>
@@ -778,6 +774,7 @@
 						current MongoDB instance, along with their respective disk space usage.
 					</li>
 					<img src="./assets/images/showDBCommand.png" alt="example output of show db command" />
+					<li>If you would like to list all collections within the DB you can use the "show collections" command</li>
 					<li>
 						To navigate to a specific database, use the command "use dbNameHere". For example, if you want to work with
 						the e-commerce database, you would run "use online_plant_shop". This command will switch you to the
@@ -957,7 +954,7 @@
 			</section>
 
 			<section>
-				<h3>Review: MongoDB CRUD I</h3>
+				<h3>Review: MongoDB CRUD I - Finding Documents</h3>
 				<ul>
 					<li>We can view a list of all our databases by running the show dbs command.</li>
 					<li>
@@ -1003,6 +1000,188 @@
 						<li>
 							Lastly, if you are looking for a way to make query outputs look a bit more “pretty”, you can use the
 							.pretty() method!
+						</li>
+					</ol>
+				</ul>
+			</section>
+
+			<h2>MongoDB CRUD I - Querying on Array Fields</h2>
+
+			<section>
+				<h3>Querying for an Entire Array</h3>
+				<ul>
+					<li>MongoDB allows us to query documents based on array fields.</li>
+					<li>We can use the .find() method to filter documents based on an array field.</li>
+					<li>The query argument includes the field and the array we want to match.</li>
+					<img src="./assets/images/queryingForArray.jpg" alt="querying for an array" />
+					<li>
+						The query matches documents where the specified array field contains exactly the same values as specified in
+						the query, in the same order.
+					</li>
+					<li>Additional values in the array or a different order will not result in a match.</li>
+					<li>The query returns documents that meet the array matching criteria.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Matching Individual Array Elements</h3>
+				<ul>
+					<li>MongoDB allows us to match individual elements within an array when querying.</li>
+					<li>We can use the .find() method to search for documents based on a specific array element.</li>
+					<li>Instead of providing the entire array as the query argument, we provide the value we want to match.</li>
+					<img src="./assets/images/matchingIndividualArrayElements.jpg" alt="matching individual array elements" />
+					<li>
+						The query matches documents where the specified array field contains the specified value, regardless of
+						other elements in the array.
+					</li>
+					<li>The order of elements in the array does not matter.</li>
+					<li>The query returns documents that meet the array element matching criteria.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Matching Multiple Array Elements with $all</h3>
+				<ul>
+					<li>
+						The $all operator is used to match documents where an array field includes all the specified elements,
+						regardless of the order.
+					</li>
+					<li>It allows for querying array fields that contain multiple values simultaneously.</li>
+					<img src="./assets/images/matchingMultipleArrayElements.jpg" alt="matching multiple array elements" />
+					<li>
+						When using $all, MongoDB matches documents where the specified array field contains all the elements
+						provided in the query, irrespective of the order of the elements.
+					</li>
+					<li>
+						The $all operator returns documents that contain additional elements in the array field, along with the
+						specified elements.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Querying on Compound Filter Conditions</h3>
+				<ul>
+					<li>
+						In addition to exact matches and individual elements, you can use comparison operators to query array fields
+						based on conditions or ranges.
+					</li>
+					<li>
+						Comparison operators like $gte (greater than or equal to), $lte (less than or equal to), $gt (greater than),
+						and $lt (less than) can be used to specify the conditions.
+					</li>
+					<img src="./assets/images/compoundFilterOperators.jpg" alt="compound filter conditions" />
+					<li>
+						You can combine multiple conditions to create compound queries using logical operators like $and and $or.
+					</li>
+					<li>
+						Compound queries allow you to find documents where array elements meet multiple criteria, even if different
+						elements satisfy different conditions.
+					</li>
+					<li>
+						The query result will include documents where at least one array element satisfies the specified criteria.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Querying for all conditions with $elemMatch</h3>
+				<ul>
+					<li>The $elemMatch operator is used to specify multiple criteria on the elements of an array field.</li>
+					<li>
+						It ensures that the returned documents have at least one array element that satisfies all the specified
+						criteria.
+					</li>
+					<li>
+						When using $elemMatch, the conditions specified inside it are treated as a whole and must all be satisfied
+						by the same array element.
+					</li>
+					<img src="./assets/images/elemMatchOperator.jpg" alt="elemMatch operator" />
+					<li>
+						The $elemMatch operator can be used with other query operators, such as comparison operators, to create
+						complex conditions on array elements.
+					</li>
+					<li>
+						The query result will include documents that have at least one array element matching the specified
+						criteria, even if other array elements don't match the criteria.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Querying an Array of Embedded Documents</h3>
+				<ul>
+					<li>
+						Querying embedded documents in MongoDB is common when dealing with collections that have an array of
+						documents.
+					</li>
+					<li>
+						There are two primary ways to query such collections: matching on the entire embedded document or matching
+						based on a single field.
+					</li>
+					<li>
+						For an exact match on the entire embedded document, the query must specify the field order and exact field
+						values.
+					</li>
+					<img src="./assets/images/exactMatchEmbededDocument.jpg" alt="exact match on embeded document" />
+					<li>The query would return documents that have the exact order and values specified in the query.</li>
+					<li>If the field order is different, the query won't return any results.</li>
+					<li>Querying based on a single field is also possible using dot notation.</li>
+					<img src="./assets/images/singleFieldQuery.jpg" alt="single field query" />
+					<li>
+						The syntax is the same as querying non-array fields, with the embedded document field and parent document
+						field wrapped in quotation marks.
+					</li>
+					<li>The query would return documents that have an embedded document with the specified year field value.</li>
+					<li>These queries can be combined with query operators and multiple conditions using $elemMatch.</li>
+				</ul>
+				<br />
+				<li>
+					<a
+						href="https://www.mongodb.com/docs/manual/tutorial/query-array-of-documents/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>Query an Array of Embedded Documents</a
+					>
+				</li>
+			</section>
+
+			<section>
+				<h3>Review: Querying on Array Fields</h3>
+				<ul>
+					<li>
+						We can query documents for exact array matches by using the .find() method and passing in a query document
+						containing the field name, and its array as the value.
+					</li>
+					<li>
+						We can match a single array element by using the .find() method and passing in a query document containing
+						the field name, and the element we want to match as its value.
+					</li>
+					<li>To match multiple elements in an array, we can apply the $all operator to the .find() method.</li>
+					<li>
+						The $all operator will match any document where the given array field contains all the specified values, in
+						any order and regardless of other elements in the array.
+					</li>
+					<li>
+						We can use the .find() method with comparison operators to match documents where the array contains one or
+						more elements that satisfy the query conditions in some combination.
+					</li>
+					<li>
+						To match documents where the array contains one or more elements that satisfy all the query conditions, we
+						can apply the $elemMatch operator to the .find() method.
+					</li>
+					<li>
+						We can query embedded documents in an array field by querying for either an exact match (with the exact
+						order) or by querying for a single field.
+					</li>
+					<li>MongoDB provides us with even more operators that can be useful to us when querying on array fields:</li>
+					<ol>
+						<li>The $size operator is used with .find() to match any array with the specified number of elements.</li>
+						<li>
+							The $in operator can be included in queries to match documents where the field is an array that contains
+							at least one element in the specified array.
+						</li>
+						<li>
+							The $nin operator can be included in queries to match documents where the field is an array that contains
+							no elements mentioned in the given array.
 						</li>
 					</ol>
 				</ul>
