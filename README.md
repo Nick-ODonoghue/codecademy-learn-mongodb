@@ -1,6 +1,6 @@
 <h1 align="center">My Notes - Codecademy Learn MongoDB | NickOD.xyz</h1>
 
-![Certificate of Completion - Coming Soon...]()
+![Certificate of Completion](./assets/images/Codecademy%20-%20Learn%20MongoDB%20Course.jpg)
 
 <br>
 
@@ -20,7 +20,9 @@ This is a collection of all my notes taken whilst going through the Codecademy c
 
 ## Sticking Points & What I learned
 
-...
+CRUD
+
+- It's hard to jot down all the things learned on this course. Having a good understanding of CRUD usage in other technologies certainly help whilst going through this course. It is basically a matter of learning a new syntax for MongoDB
 
 ## Author
 
@@ -31,7 +33,9 @@ This is a collection of all my notes taken whilst going through the Codecademy c
 
 ## Useful Resources
 
-[Coming Soon...]()
+[Codecademy Cheatsheets](https://www.codecademy.com/learn/learn-mongodb/modules/database-basics/cheatsheet)
+
+[MongoDB Docs](https://www.mongodb.com/docs/)
 
 <br>
 
