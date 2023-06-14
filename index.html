@@ -1928,52 +1928,177 @@
 				</li>
 			</section>
 
+			<h2>Explore MongoDB Aggregation</h2>
+
 			<section>
-				<h3></h3>
+				<h3>Introduction</h3>
 				<ul>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
+					<li>Aggregation in MongoDB allows us to perform complex analytical operations on our data.</li>
+					<li>It is useful when we want to answer questions related to trends and perform analytics.</li>
+					<li>
+						Examples of questions that can be answered through aggregation include identifying the best-selling products
+						over a specific time period, determining the product with the highest sales on certain days, or finding
+						geographic locations that have higher product orders.
+					</li>
+					<li>
+						MongoDB's aggregation framework provides built-in functionality for performing these types of queries.
+					</li>
+					<li>Aggregation is a core feature of MongoDB and eliminates the need to use separate tools for analytics.</li>
+					<li>By utilizing the aggregation framework, we can perform data analysis directly within MongoDB.</li>
 				</ul>
 			</section>
 
 			<section>
-				<h3></h3>
+				<h3>Aggregation Basics</h3>
 				<ul>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
+					<li>
+						Aggregation in MongoDB involves combining and filtering data in a step-by-step process to derive meaningful
+						insights.
+					</li>
+					<li>
+						Aggregation allows us to sift through large amounts of data and perform computations or filtering at each
+						step.
+					</li>
+					<li>
+						The primary method for performing aggregation in MongoDB is through the use of an aggregation pipeline.
+					</li>
+					<li>
+						An aggregation pipeline consists of multiple stages, where each stage performs a specific operation on the
+						data.
+					</li>
+					<li>
+						The pipeline acts as a channel through which data passes from the start to the end, with each stage
+						modifying or filtering the data.
+					</li>
+					<li>The pipeline can have many stages depending on the analysis requirements.</li>
+					<li>
+						Creating an aggregation pipeline in MongoDB enables us to manipulate and analyze data in a structured and
+						customizable way.
+					</li>
+					<img src="./assets/images/aggregationPipeline.jpg" alt="aggregation pipeline" />
 				</ul>
 			</section>
 
 			<section>
-				<h3></h3>
+				<h3>Getting Started with Aggregation</h3>
 				<ul>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
+					<li>To start using aggregation in MongoDB, we use the .aggregate() method on a collection.</li>
+					<img src="./assets/images/aggregationSyntax.jpg" alt="aggregation syntax" />
+					<li>The .aggregate() method requires an array of pipeline stages as its argument.</li>
+					<li>Each stage in the pipeline performs a specific operation on the data.</li>
+					<li>
+						A common stage used in aggregation is $match, which filters documents based on a specified field and value.
+					</li>
+					<img src="./assets/images/aggregationExample.jpg" alt="aggregation example" />
+					<li>The $match stage is similar to using the find() method with a query to filter documents.</li>
+					<li>The result of the aggregation is a subset of documents that match the specified criteria.</li>
+					<li>Building stages in the pipeline allows for complex aggregation operations.</li>
+					<li>By adding multiple stages, we can perform more advanced computations and transformations on the data.</li>
+					<li>
+						As we continue to build our pipeline with different stages, we can explore new stages and enhance our
+						understanding of aggregation.
+					</li>
 				</ul>
+			</section>
+
+			<section>
+				<h3>Aggregation in Action: Building a Multi-Stage Aggregation Pipeline</h3>
+				<ul>
+					<li>
+						The goal is to create a new collection called "candidates" with specific criteria based on the following
+						document.
+					</li>
+					<img src="./assets/images/document.jpg" alt="document" />
+					<li>The criteria for the "candidates" collection are:</li>
+					<ol>
+						<li>Students must be in the 6th grade.</li>
+						<li>Students must have an average test score above 97.</li>
+						<li>Students in the new collection must be sorted by their first name.</li>
+						<li>
+							A new field called "highest_score" needs to be added, containing the highest test score from the
+							"test_scores" array.
+						</li>
+					</ol>
+					<li>The aggregation pipeline consists of multiple stages.</li>
+					<li>
+						The first stage is $match, which filters out students based on the grade level and average test score.
+					</li>
+					<img src="./assets/images/aggregationMatch.jpg" alt="aggregation match" />
+					<li>The second stage is $sort, which sorts the resulting collection by the first name in ascending order.</li>
+					<img src="./assets/images/aggregationSort.jpg" alt="aggregation sort" />
+					<li>
+						The third stage is $addFields, which adds a new field called "highest_score" using the $max operator to find
+						the maximum value from the "test_scores" field.
+					</li>
+					<img src="./assets/images/aggregationAddFieldsSyntax.jpg" alt="aggregation addFields syntax" />
+					<img src="./assets/images/aggregationAddFields.jpg" alt="aggregation addFields" />
+					<li>
+						The fourth stage is $out, which creates a new collection named "candidates" and stores the final aggregation
+						result in it.
+					</li>
+					<img src="./assets/images/aggregationOut.jpg" alt="aggregation out" />
+					<li>
+						The $out stage can output the final result of an aggregation pipeline to a new database, a new collection,
+						or both!
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>When to Use Aggregation</h3>
+				<ul>
+					<li>
+						Aggregation pipelines are used when performing multiple operations together to curate data that is more
+						analytical in nature.
+					</li>
+					<li>Aggregation allows us to see data in a bigger picture and gain insights.</li>
+					<li>
+						CRUD methods like find() and updateOne() are best for operational tasks, while aggregation is more suitable
+						for analytical tasks.
+					</li>
+					<li>
+						Aggregation is useful when there are no CRUD methods or combinations of methods that can easily accomplish
+						the desired query.
+					</li>
+					<li>
+						Aggregation is beneficial when performing analysis on datasets, such as grouping values from multiple
+						documents, performing computations on data, and analyzing data changes over time.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Review: Explore MongoDB Aggregation</h3>
+				<ul>
+					<li>In MongoDB, we can perform aggregation as an alternative way to query data.</li>
+					<li>One way of accomplishing aggregation is by using an aggregation pipeline via the .aggregate() method.</li>
+					<li>
+						Aggregation pipelines allow us to incrementally filter data through the use of stages, where each stage
+						filters/modifies the data in a specific way and then passes that data to the next stage.
+					</li>
+					<li>We can build a pipeline using stages such as $match or $sort.</li>
+					<li>Some stages can utilize different types of expressions such as expression operators like $max.</li>
+					<li>
+						To reference fields from the documents in our collections inside of expressions, we must use a field path.
+					</li>
+					<li>
+						Aggregation is particularly useful when we have tasks that can’t be accomplished with common CRUD methods
+						easily or when we are looking to perform complex analytics on datasets.
+					</li>
+				</ul>
+				<p>Useful Links:</p>
+				<li>
+					<a href="https://www.mongodb.com/basics/aggregation">MongoDB: Aggregation Basics</a>
+				</li>
+				<li>
+					<a href="https://www.mongodb.com/basics/aggregation-pipeline">MongoDB: Aggregation Pipeline Introduction</a>
+				</li>
+				<br />
+				<li>
+					<a href="https://www.codecademy.com/learn/learn-mongodb/modules/explore-mongo-db-extras/cheatsheet"
+						>Explore MongoDB - Cheatsheet</a
+					>
+				</li>
 			</section>
 
 			<section>
