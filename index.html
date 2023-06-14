@@ -1622,6 +1622,360 @@
 				</ul>
 			</section>
 
+			<h2>Indexing in MongoDB</h2>
+
+			<section>
+				<h3>What is Indexing?</h3>
+				<ul>
+					<li>
+						Indexing is a tool that makes certain queries in MongoDB more efficient by avoiding the need to search the
+						entire database for results.
+					</li>
+					<li>
+						An index is a special data structure that stores a small portion of the collection's data in an
+						easy-to-traverse form.
+					</li>
+					<li>
+						It works similarly to an index in a textbook, where you can quickly locate specific information without
+						having to scan every page.
+					</li>
+					<img src="./assets/images/bookIndex.jpg" alt="a book index" />
+					<li>
+						Indexes in MongoDB aim to optimize query performance and reduce the time, computing power, and cost required
+						for queries.
+					</li>
+					<li>
+						Without indexes, queries would need to parse every document in a collection, which becomes inefficient as
+						the collection grows in size.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>The Types of Indexes in MongoDB</h3>
+				<ul>
+					<li>MongoDB supports several types of indexes to optimize query performance.</li>
+					<li>Single-field indexes:</li>
+					<ol>
+						<li>Indexes only one field of a document.</li>
+						<li>Enables querying specific subsets of data.</li>
+						<li>Improves query performance by scanning a smaller data set.</li>
+						<li>Data is arranged in ascending or descending order for faster matching.</li>
+					</ol>
+					<img src="./assets/images/sinleFieldIndex.jpg" alt="single field index" />
+					<li>Compound indexes:</li>
+					<ol>
+						<li>Indexes on multiple fields.</li>
+						<li>Supports more specific queries with multiple criteria.</li>
+						<li>Useful for sorting and organizing data based on multiple fields.</li>
+						<li>Enables efficient range-based query operations.</li>
+					</ol>
+					<li>Multikey indexes:</li>
+					<ol>
+						<li>Optimized for array fields.</li>
+						<li>Indexes each element in the array.</li>
+						<li>Automatically created for array fields.</li>
+						<li>Compatible with single-field and compound indexes.</li>
+					</ol>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Tradeoffs and Precautions When Working with Indexes</h3>
+				<ul>
+					<li>Indexes are not a one-size-fits-all solution and have some tradeoffs to consider.</li>
+					<li>Indexes are most effective for selective queries that retrieve a small portion of the data.</li>
+					<li>
+						It's important to be conservative and plan ahead when creating indexes due to their space consumption.
+					</li>
+					<li>
+						Indexes improve query performance but impact write performance, as changes to the collection must be
+						reflected in each index.
+					</li>
+					<li>
+						Proper planning and consideration of indexes can significantly enhance MongoDB's capabilities and optimize
+						query performance.
+					</li>
+					<li>Indexes help improve computing performance, reduce bandwidth usage, and enhance time efficiency.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Single Field Index</h3>
+				<ul>
+					<li>
+						In MongoDB, indexes improve database performance by storing a small portion of the collection's data in an
+						easy-to-traverse form.
+					</li>
+					<li>
+						We can create custom indexes using the .createIndex() method, specifying the keys and optional parameters.
+					</li>
+					<img src="./assets/images/indexSyntax.jpg" alt="index syntax" />
+					<li>
+						The keys parameter defines the field and type of the index. Fields can be assigned a value of 1 or -1 for
+						ascending or descending order.
+					</li>
+					<li>
+						Creating a single field index involves specifying a field and its sorting order (ascending or descending).
+					</li>
+					<img src="./assets/images/singleFieldIndex.jpg" alt="single field index" />
+					<li>
+						By using the indexed field in queries, we can significantly speed up searches, as the index allows for a
+						focused scan rather than examining every document in the collection.
+					</li>
+					<img src="./assets/images/queryingOurIndex.jpg" alt="index query" />
+				</ul>
+			</section>
+
+			<section>
+				<h3>Performance Insights with .explain()</h3>
+				<ul>
+					<li>
+						The .explain() method in MongoDB provides insights into the performance implications of queries,
+						particularly regarding indexes.
+					</li>
+					<li>
+						It can be appended to the .find() method and takes a string parameter (verbose) to specify what information
+						to explain.
+					</li>
+					<img src="./assets/images/explainSyntax.jpg" alt="explain syntax" />
+					<li>The possible values for verbose are "queryPlanner", "executionStats", and "allPlansExecution".</li>
+					<li>
+						By using the "executionStats" option, we can gain insights into the execution of the winning query plan for
+						a query.
+					</li>
+					<img src="./assets/images/explainExample.jpg" alt="explain example" />
+					<li>
+						Running .explain('executionStats') on a query provides detailed information about the operation, including
+						metrics such as execution time and the number of documents examined.
+					</li>
+					<li>The output of .explain() helps us understand how indexes impact query performance.</li>
+					<li>
+						Comparing the nReturned, totalDocsExamined, and executionTimeMillis fields before and after indexing can
+						demonstrate the efficiency gained by using indexes.
+					</li>
+					<li>
+						Indexes can significantly reduce the number of documents examined and improve query execution time,
+						particularly when working with large collections.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Compound Indexes</h3>
+				<ul>
+					<li>
+						Compound indexes in MongoDB allow us to create indexes that reference multiple fields within a document.
+					</li>
+					<li>
+						The syntax for creating a compound index is similar to that of a single field index, but with multiple
+						field-value pairs.
+					</li>
+					<li>
+						The order of the fields in a compound index is important as it determines the sorting order of the index.
+					</li>
+					<img src="./assets/images/compoundIndexSyntax.jpg" alt="compound index syntax" />
+					<li>MongoDB will scan the compound index for matching values and return the corresponding documents.</li>
+					<img src="./assets/images/compoundIndexExample.jpg" alt="compoun index example" />
+					<li>
+						Compound indexes can support queries that match on multiple fields and can also support queries on any
+						prefix, or a beginning subset, of the indexed fields.
+					</li>
+					<li>
+						Consider the order of fields in a compound index based on the query patterns to optimize sort operations.
+					</li>
+					<li>
+						Unnecessary indexes can impact write performance, so it's important to evaluate if a compound index would be
+						more efficient than creating multiple single field indexes.
+					</li>
+					<li>Compound indexes automatically get used by MongoDB when querying on the indexed fields.</li>
+					<li>
+						When creating a compound index, it's important to consider the specific query patterns and the fields
+						involved to ensure optimal index usage.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Multikey Index on Single Fields</h3>
+				<ul>
+					<li>
+						MongoDB automatically creates a multikey index when an index is created on a field with an array value.
+					</li>
+					<li>Multikey indexes provide an index key for each element in the indexed array.</li>
+					<li>To create a multikey index on a single field, use the same syntax as creating a single-field index.</li>
+					<img src="./assets/images/multiKeyIndex.jpg" alt="multikey index" />
+					<li>The resulting multikey index contains individual references to each element in the array field.</li>
+					<li>Multikey indexes can be used to optimize queries that involve array fields.</li>
+					<li>Multikey indexes are compatible with both single field and compound indexes.</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Multikey Index on Compound Fields</h3>
+				<ul>
+					<li>
+						Compound multikey indexes are possible in MongoDB, but only one of the indexed fields can have an array as
+						its value.
+					</li>
+					<img src="./assets/images/multikeyIndexCompound.jpg" alt="document with two arrays" />
+					<li>
+						For example, if we have fields like "sports" and "clubs" with arrays as their values in a document, we can
+						create a compound multikey index on either "sports" or "clubs" along with any other field.
+					</li>
+					<img src="./assets/images/multikeyIndexCompoundExample.jpg" alt="multikey index example" />
+					<li>
+						However, it is not possible to create a single compound multikey index on both "sports" and "clubs" fields.
+					</li>
+					<li>
+						If we want to index both "sports" and "clubs" fields, we would need to create two separate indexes for them.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Deleting an Index</h3>
+				<ul>
+					<li>It is important to review and remove any unnecessary or redundant indexes to improve performance.</li>
+					<li>The .getIndexes() method can be used to see all the indexes associated with a collection.</li>
+					<img src="./assets/images/getIndexes.jpg" alt="getIndexes example" />
+					<li>
+						The .dropIndex() method allows us to remove an index from a collection without modifying the original
+						collection.
+					</li>
+					<li>To delete an index, we need to specify the index name as an argument to the .dropIndex() method.</li>
+					<img src="./assets/images/dropIndexExample.jpg" alt="dropIndex example" />
+					<li>After deleting an index, we can confirm the removal by using the .getIndexes() method again.</li>
+					<li>
+						By regularly reviewing and removing unnecessary indexes, we can free up disk space and improve the
+						performance of write operations.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Review: Indexing in MongoDB</h3>
+				<ul>
+					<li>
+						An index is a data structure that captures a subset of a collection’s data in an easy-to-traverse form. We
+						can use the .createIndex() method to create an index.
+					</li>
+					<li>A single field index is an index that references one field from a document.</li>
+					<li>
+						We can use the .explain() method with the "executionStats" argument to gain insight into the performance
+						implications of our index on our query.
+					</li>
+					<li>A compound index is an index that contains references to multiple fields within a document.</li>
+					<li>
+						Multikey indexes are automatically created whenever we create an index on a field that contains an array
+						value. Multikey indexes create an index key for each element in the array.
+					</li>
+					<li>A compound index cannot support two multikey indexes.</li>
+					<li>The .dropIndex() method deletes an index without modifying the original collection.</li>
+					<li>MongoDB offers us other syntax and commands that can be useful when indexing collections:</li>
+					<ol>
+						<li>
+							Partial Indexes only index documents in a collection that meet specific filter criteria. By indexing a
+							subset of a collection’s documents, partial indexes consume less storage and have improved performance.
+						</li>
+						<li>
+							Sparse Indexes only index documents that include the specified index field. Any documents that do not have
+							the field will be excluded from the index. Much like partial indexes, these indexes can use significantly
+							less storage and have relatively improved performance compared to non-sparse indexes.
+						</li>
+						<li>
+							TTL Indexes are special single-field indexes that MongoDB can use to automatically remove documents from a
+							collection after a certain amount of time or at a specific clock time.
+						</li>
+						<li>
+							Unique Indexes enforce unique values for the indexed fields. Creating a unique index on a collection will
+							restrict the insertion or update of documents where the indexed field’s value matches an existing value in
+							the index.
+						</li>
+					</ol>
+				</ul>
+				<p>Useful Links:</p>
+				<li>
+					<a
+						href="https://www.mongodb.com/docs/manual/core/index-partial/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>Partial Indexes</a
+					>
+				</li>
+				<li>
+					<a
+						href="https://www.mongodb.com/docs/manual/core/index-sparse/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>Sparse Indexes</a
+					>
+				</li>
+				<li>
+					<a
+						href="https://www.mongodb.com/docs/manual/core/index-ttl/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>TTL Indexes</a
+					>
+				</li>
+				<li>
+					<a
+						href="https://www.mongodb.com/docs/manual/indexes/#unique-indexes/?utm_campaign=academia_partners&utm_source=codecademy&utm_medium=referral"
+						>Unique Indexes</a
+					>
+				</li>
+
+				<br />
+				<li>
+					<a href="https://www.codecademy.com/learn/learn-mongodb/modules/indexing-in-mongo-db/cheatsheet"
+						>Indexing in MongoDB - Cheatsheet</a
+					>
+				</li>
+			</section>
+
+			<section>
+				<h3></h3>
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</section>
+
+			<section>
+				<h3></h3>
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</section>
+
+			<section>
+				<h3></h3>
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</section>
+
 			<section>
 				<h3></h3>
 				<ul>
