@@ -1484,6 +1484,144 @@
 				</li>
 			</section>
 
+			<h2>MongoDB CRUD II Deleting Documents</h2>
+
+			<section>
+				<h3>Deleting a Document</h3>
+				<ul>
+					<li>MongoDB provides the .deleteOne() method to permanently remove a single document from a collection.</li>
+					<li>
+						To use .deleteOne(), we need to provide specific filtering criteria to identify the document to be deleted.
+					</li>
+					<img src="./assets/images/DeletingDocumentsSyntax.jpg" alt="deleting documents syntax" />
+					<li>Two arguments are passed to .deleteOne():</li>
+					<ol>
+						<li>filter: A document that specifies the selection criteria for the document to delete.</li>
+						<li>
+							options: A document that can include optional fields, such as writeConcern, to provide additional
+							specifications to the operation.
+						</li>
+					</ol>
+					<img src="./assets/images/DeletingADocument.jpg" alt="deleting a document" />
+					<li>
+						If the deletion is successful, MongoDB will confirm it with the output: { acknowledged: true, deletedCount:
+						1 }.
+					</li>
+					<img src="./assets/images/DeletingADocumentAcknowledgement.jpg" alt="deleting a documents acknowledgement" />
+					<li>
+						Only one document matching the criteria will be deleted, even if there are multiple documents with the same
+						criteria.
+					</li>
+					<li>
+						The document that gets deleted is determined by factors such as insertion order and the presence of relevant
+						indexes.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Deleting Multiple Documents</h3>
+				<ul>
+					<li>
+						MongoDB provides the .deleteMany() method to remove multiple documents from a collection based on a given
+						filter.
+					</li>
+					<img src="./assets/images/deleteManySyntax.jpg" alt="delete many syntax" />
+					<li>Two arguments are passed to .deleteMany():</li>
+					<ol>
+						<li>filter: A document that specifies the selection criteria for the documents to delete.</li>
+						<li>
+							options: A document that can include optional fields, such as writeConcern, to provide additional
+							specifications to the operation.
+						</li>
+					</ol>
+					<li>
+						If no filter is provided, the .deleteMany() method will delete all documents from the collection, so caution
+						should be exercised.
+					</li>
+					<img src="./assets/images/deleteMany.jpg" alt="delete many example" />
+					<li>The operation will delete all documents where the type field has the value of "Hydra".</li>
+					<img src="./assets/images/deleteManyAcknowledgement.jpg" alt="delete many acknowledgement" />
+					<li>
+						After the deletion, the remaining documents in the collection will be those that do not match the deletion
+						criteria.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Replacing a Document</h3>
+				<ul>
+					<li>
+						MongoDB provides the .replaceOne() method to replace the first document in a collection that matches a given
+						filter.
+					</li>
+					<img src="./assets/images/replaceOneSyntax.jpg" alt="replace one syntax" />
+					<li>Three arguments are passed to .replaceOne():</li>
+					<ol>
+						<li>filter: A document that specifies the selection criteria for the document to replace.</li>
+						<li>replacement: The replacement document.</li>
+						<li>
+							options: A document that can include optional fields, such as upsert, to provide additional specifications
+							to the operation.
+						</li>
+					</ol>
+					<li>
+						The replacement document can contain a subset of fields from the original document or entirely new fields.
+					</li>
+					<img src="./assets/images/replaceOneExample.jpg" alt="replace one example" />
+					<li>
+						The operation will replace the first document that matches the filter criteria with the specified
+						replacement document.
+					</li>
+					<li>
+						MongoDB will confirm the success of the operation and provide the output, including the number of matched
+						and modified documents.
+					</li>
+					<li>
+						After the replacement, the resulting collection will contain the replaced document with only the fields
+						specified in the replacement document, and other fields from the original document will be removed.
+					</li>
+					<li>
+						Unlike the .updateOne() method, which updates specific fields based on update modifiers, .replaceOne()
+						replaces the entire document with the specified replacement document.
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Review: MongoDB CRUD II Deleting Documents</h3>
+				<ul>
+					<li>
+						The .deleteOne() method deletes a single document from a collection. It accepts a filter document specifying
+						which document to delete as the first parameter.
+					</li>
+					<li>The .deleteOne() method will only delete the first matching document in the collection.</li>
+					<li>
+						The .deleteMany() method deletes all matching documents from a collection. It accepts a filter document
+						specifying which document to delete as the first parameter.
+					</li>
+					<li>
+						The .replaceOne() method replaces an entire document from a collection. It takes in filtering criteria
+						specifying the document to replace as the first parameter and a replacement document as the second one.
+					</li>
+					<li>The .replaceOne() method will only replace the first matching document in the collection.</li>
+					<li>
+						Since .replaceOne() replaces an entire document, only fields included in the second parameter will be
+						present in the document after the operation executes.
+					</li>
+					<li>MongoDB offers us other syntax and commands that can be useful when deleting or replacing documents:</li>
+					<ol>
+						<li>
+							The .findOneAndReplace() method is very similar to .replaceOne(). It replaces a document in a collection
+							based on filter criteria, but instead of returning a document that acknowledges the operation, it returns
+							either the original document or the replacement document.
+						</li>
+						<li>The .findOneAndDelete() method deletes a document, and returns the deleted document.</li>
+					</ol>
+				</ul>
+			</section>
+
 			<section>
 				<h3></h3>
 				<ul>
